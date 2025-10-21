@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تسجيل الدخول - الفصول الدراسية</title>
-    <link rel="stylesheet" href="index.html">
+    <title>الفصول الدراسية - الترم الأول والثاني</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* التنسيقات العامة */
         * {
             margin: 0;
             padding: 0;
@@ -14,69 +15,94 @@
         }
         
         body {
-           background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
-                        url('https://pin.it/5vmHACy9c');
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('01.JPG');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
             color: #fff;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
+            overflow-x: hidden;
         }
         
-        .login-container {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 40px;
-            width: 90%;
-            max-width: 450px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
             text-align: center;
-            z-index: 10;
-            position: relative;
+            padding: 40px 0;
+            animation: fadeIn 1.5s ease-out;
         }
         
         h1 {
-            font-size: 2.5rem;
+            font-size: 3rem;
             margin-bottom: 10px;
             text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
         }
         
         .subtitle {
-            font-size: 1rem;
+            font-size: 1.2rem;
             opacity: 0.9;
             margin-bottom: 30px;
         }
         
-        .form-group {
-            margin-bottom: 20px;
-            text-align: right;
+        /* قسم الفصول الدراسية */
+        .semesters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 40px;
         }
         
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-        }
-        
-        input, select {
+        .semester-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
             width: 100%;
-            padding: 12px 15px;
-            border-radius: 8px;
-            border: none;
-            background: rgba(255, 255, 255, 0.9);
-            font-size: 1rem;
-            transition: all 0.3s ease;
+            max-width: 500px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            position: relative;
+            overflow: hidden;
         }
         
-        input:focus, select:focus {
-            outline: none;
-            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.5);
-            transform: scale(1.02);
+        .semester-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        }
+        
+        .semester-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+        }
+        
+        .semester-1::before {
+            background: linear-gradient(90deg, #3498db, #2ecc71);
+        }
+        
+        .semester-2::before {
+            background: linear-gradient(90deg, #e74c3c, #f39c12);
+        }
+        
+        .semester-title {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .semester-content {
+            line-height: 1.6;
+            margin-bottom: 20px;
+            text-align: center;
         }
         
         .btn {
@@ -90,26 +116,96 @@
             transition: all 0.3s ease;
             border: none;
             cursor: pointer;
+            text-align: center;
             width: 100%;
             margin-top: 10px;
-            font-size: 1.1rem;
         }
         
         .btn:hover {
             transform: scale(1.05);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
-        
-        .error {
-            color: #ff6b6b;
-            margin-top: 10px;
-            display: none;
-            background: rgba(255, 107, 107, 0.1);
-            padding: 10px;
-            border-radius: 5px;
-            border-right: 3px solid #ff6b6b;
+
+        .btn-secondary {
+            background: linear-gradient(45deg, #3498db, #2ecc71);
+            margin-top: 5px;
         }
 
+        /* زر الجدول */
+        .schedule-btn-container {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .schedule-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: linear-gradient(45deg, #9b59b6, #8e44ad);
+            color: white;
+            padding: 18px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(155, 89, 182, 0.4);
+            border: none;
+            cursor: pointer;
+            min-width: 220px;
+        }
+
+        .schedule-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 12px 35px rgba(155, 89, 182, 0.6);
+        }
+
+        .schedule-btn i {
+            font-size: 1.5rem;
+        }
+
+        .btn-text {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .btn-main-text {
+            font-size: 1.3rem;
+        }
+
+        .btn-sub-text {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            font-weight: normal;
+        }
+        
+        /* الأنيميشن */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        .semester-1 {
+            animation: slideInLeft 1s ease-out;
+        }
+        
+        .semester-2 {
+            animation: slideInRight 1s ease-out;
+        }
+        
         /* القطار المتحرك المحسن */
         .train-container {
             position: fixed;
@@ -117,7 +213,7 @@
             left: 0;
             width: 100%;
             height: 180px;
-            z-index: 1;
+            z-index: -1;
             overflow: hidden;
         }
         
@@ -259,7 +355,7 @@
             width: 100%;
             height: 60px;
             background: linear-gradient(to bottom, #5d4037, #4e342e);
-            z-index: 0;
+            z-index: -2;
             overflow: hidden;
         }
         
@@ -360,202 +456,71 @@
             }
         }
         
-        /* تأثير الدخان المحسن والواقعي */
-        .smoke-container {
-            position: absolute;
-            top: -10px;
-            left: 140px;
-            width: 60px;
-            height: 100px;
-            z-index: 1;
-        }
-        
+        /* تأثير الدخان المحسن */
         .smoke {
             position: absolute;
-            background: radial-gradient(circle at center, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.7) 30%, rgba(255,255,255,0.3) 70%, transparent 100%);
-            border-radius: 50%;
-            filter: blur(8px);
-            opacity: 0;
-        }
-        
-        .smoke-1 {
-            width: 15px;
-            height: 15px;
-            animation: smokeRise1 4s infinite ease-out;
-            left: 10px;
-        }
-        
-        .smoke-2 {
-            width: 20px;
-            height: 20px;
-            animation: smokeRise2 4s infinite ease-out 0.5s;
-            left: 15px;
-        }
-        
-        .smoke-3 {
+            top: -15px;
+            left: 160px;
             width: 25px;
             height: 25px;
-            animation: smokeRise3 4s infinite ease-out 1s;
-            left: 5px;
+            background: rgba(255,255,255,0.9);
+            border-radius: 50% 50% 50% 0;
+            animation: smokeAnimation 4s infinite;
+            filter: blur(2px);
         }
         
-        .smoke-4 {
-            width: 18px;
-            height: 18px;
-            animation: smokeRise4 4s infinite ease-out 1.5s;
-            left: 20px;
-        }
-        
-        .smoke-5 {
+        .smoke:nth-child(2) {
+            animation-delay: 0.7s;
+            left: 150px;
             width: 22px;
             height: 22px;
-            animation: smokeRise5 4s infinite ease-out 2s;
-            left: 8px;
         }
         
-        @keyframes smokeRise1 {
-            0% {
-                transform: translateY(0) translateX(0) scale(0.8);
-                opacity: 0.8;
-            }
-            20% {
-                transform: translateY(-20px) translateX(5px) scale(1.2);
-                opacity: 0.7;
-            }
-            40% {
-                transform: translateY(-40px) translateX(-3px) scale(1.5);
-                opacity: 0.5;
-            }
-            60% {
-                transform: translateY(-60px) translateX(2px) scale(1.8);
-                opacity: 0.3;
-            }
-            80% {
-                transform: translateY(-80px) translateX(-5px) scale(2);
-                opacity: 0.1;
-            }
-            100% {
-                transform: translateY(-100px) translateX(0) scale(2.2);
-                opacity: 0;
-            }
+        .smoke:nth-child(3) {
+            animation-delay: 1.4s;
+            left: 140px;
+            width: 20px;
+            height: 20px;
         }
         
-        @keyframes smokeRise2 {
-            0% {
-                transform: translateY(0) translateX(0) scale(0.9);
-                opacity: 0.7;
-            }
-            20% {
-                transform: translateY(-25px) translateX(-4px) scale(1.3);
-                opacity: 0.6;
-            }
-            40% {
-                transform: translateY(-50px) translateX(3px) scale(1.6);
-                opacity: 0.4;
-            }
-            60% {
-                transform: translateY(-75px) translateX(-2px) scale(1.9);
-                opacity: 0.2;
-            }
-            80% {
-                transform: translateY(-100px) translateX(4px) scale(2.1);
-                opacity: 0.1;
-            }
-            100% {
-                transform: translateY(-125px) translateX(0) scale(2.3);
-                opacity: 0;
-            }
-        }
-        
-        @keyframes smokeRise3 {
-            0% {
-                transform: translateY(0) translateX(0) scale(1);
+        @keyframes smokeAnimation {
+            0% { 
+                transform: translateY(0) scale(1) rotate(0deg);
                 opacity: 0.9;
             }
-            20% {
-                transform: translateY(-30px) translateX(2px) scale(1.4);
-                opacity: 0.8;
-            }
-            40% {
-                transform: translateY(-60px) translateX(-4px) scale(1.7);
+            50% {
+                transform: translateY(-40px) scale(1.5) rotate(10deg);
                 opacity: 0.6;
             }
-            60% {
-                transform: translateY(-90px) translateX(3px) scale(2);
-                opacity: 0.4;
-            }
-            80% {
-                transform: translateY(-120px) translateX(-3px) scale(2.2);
-                opacity: 0.2;
-            }
-            100% {
-                transform: translateY(-150px) translateX(0) scale(2.4);
-                opacity: 0;
-            }
-        }
-        
-        @keyframes smokeRise4 {
-            0% {
-                transform: translateY(0) translateX(0) scale(0.8);
-                opacity: 0.6;
-            }
-            20% {
-                transform: translateY(-22px) translateX(-2px) scale(1.1);
-                opacity: 0.5;
-            }
-            40% {
-                transform: translateY(-44px) translateX(4px) scale(1.4);
-                opacity: 0.3;
-            }
-            60% {
-                transform: translateY(-66px) translateX(-3px) scale(1.7);
-                opacity: 0.2;
-            }
-            80% {
-                transform: translateY(-88px) translateX(2px) scale(1.9);
-                opacity: 0.1;
-            }
-            100% {
-                transform: translateY(-110px) translateX(0) scale(2.1);
-                opacity: 0;
-            }
-        }
-        
-        @keyframes smokeRise5 {
-            0% {
-                transform: translateY(0) translateX(0) scale(0.9);
-                opacity: 0.7;
-            }
-            20% {
-                transform: translateY(-28px) translateX(3px) scale(1.2);
-                opacity: 0.6;
-            }
-            40% {
-                transform: translateY(-56px) translateX(-2px) scale(1.5);
-                opacity: 0.4;
-            }
-            60% {
-                transform: translateY(-84px) translateX(4px) scale(1.8);
-                opacity: 0.2;
-            }
-            80% {
-                transform: translateY(-112px) translateX(-1px) scale(2);
-                opacity: 0.1;
-            }
-            100% {
-                transform: translateY(-140px) translateX(0) scale(2.2);
+            100% { 
+                transform: translateY(-80px) scale(2) rotate(20deg);
                 opacity: 0;
             }
         }
         
         /* تصميم متجاوب */
         @media (max-width: 768px) {
-            .login-container {
-                padding: 30px 20px;
+            .semesters {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .semester-card {
+                max-width: 100%;
             }
             
             h1 {
-                font-size: 2rem;
+                font-size: 2.2rem;
+            }
+
+            .schedule-btn {
+                padding: 15px 25px;
+                font-size: 1.1rem;
+                min-width: 200px;
+            }
+
+            .btn-main-text {
+                font-size: 1.1rem;
             }
             
             .train {
@@ -577,41 +542,88 @@
             .cabin-window:nth-child(2) {
                 left: 60px;
             }
-            
-            .smoke-container {
-                left: 100px;
-            }
         }
-
-        /* تأثيرات إضافية */
-        .login-info {
+        
+        /* تفاصيل المواد */
+        .subjects-container {
             margin-top: 20px;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            font-size: 0.9rem;
-            text-align: right;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
         }
-
-        .login-info h3 {
-            margin-bottom: 10px;
+        
+        .subjects-container.show {
+            max-height: 800px;
+        }
+        
+        .subject-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        .subject-item {
+            background: rgba(255, 255, 255, 0.1);
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .subject-item:hover {
+            transform: translateX(10px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .subject-icon {
+            margin-left: 15px;
+            font-size: 1.5rem;
             color: #3498db;
         }
-
-        .credentials {
-            margin-top: 10px;
-        }
-
-        .credential-item {
-            margin: 5px 0;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .credential-type {
+        
+        .subject-name {
             font-weight: bold;
-            color: #2ecc71;
+            font-size: 1.1rem;
         }
+        
+        .subject-description {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+
+        .subject-details {
+            margin-top: 8px;
+            font-size: 0.85rem;
+            color: #ddd;
+        }
+
+        .subject-code {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-left: 10px;
+        }
+        
+        .close-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: background 0.3s ease;
+            width: 100%;
+        }
+        
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
     </style>
 </head>
 <body>
@@ -625,13 +637,9 @@
     <!-- القطار المتحرك المحسن -->
     <div class="train-container">
         <div class="train">
-            <div class="smoke-container">
-                <div class="smoke smoke-1"></div>
-                <div class="smoke smoke-2"></div>
-                <div class="smoke smoke-3"></div>
-                <div class="smoke smoke-4"></div>
-                <div class="smoke smoke-5"></div>
-            </div>
+            <div class="smoke"></div>
+            <div class="smoke"></div>
+            <div class="smoke"></div>
             <div class="train-body"></div>
             <div class="train-cabin">
                 <div class="cabin-window"></div>
@@ -649,122 +657,251 @@
             </div>
         </div>
     </div>
-
-    <div class="login-container">
-        <h1>تسجيل الدخول</h1>
-        <p class="subtitle">الرجاء إدخال بيانات الدخول</p>
+    
+    <div class="container">
+        <header>
+            <h1>الفصول الدراسية</h1>
+            <p class="subtitle">اختر الفصل الدراسي</p>
+        </header>
         
-        <form id="loginForm">
-            <div class="form-group">
-                <label for="username">اسم المستخدم</label>
-                <input type="text" id="username" required placeholder="أدخل اسم المستخدم">
+        <div class="semesters">
+            <div class="semester-card semester-1">
+                <h2 class="semester-title">الترم الأول</h2>
+                <p class="semester-content">
+                    هنا مواد الترم الاول الي دوس هنا 👇
+                </p>
+                
+                <button class="btn" id="show-semester1">
+                    <i class="fas fa-book-open"></i> عرض مواد الترم الأول
+                </button>
+                
+                <div class="subjects-container" id="semester1-subjects">
+                    <h3 style="margin: 20px 0 15px; text-align: center;">مواد الترم الأول</h3>
+                    <ul class="subject-list">
+                        <li class="subject-item" onclick="window.location.href='Applied Mechanics.HTML'">
+                            <i class="fas fa-cogs subject-icon"></i>
+                            <div>
+                                <div class="subject-name">Applied Mechanics
+                                    <span class="subject-code">MEC101</span>
+                                </div>
+                                <div class="subject-description">دراسة الميكانيكا التطبيقية في هندسة السكك الحديدية</div>
+                                <div class="subject-details">
+                                    <i class="fas fa-clock"></i> 3 ساعات أسبوعياً
+                                </div>
+                            </div>
+                        </li>
+                        <li class="subject-item" onclick="window.location.href='English 3.HTML'">
+                            <i class="fas fa-language subject-icon"></i>
+                            <div>
+                                <div class="subject-name">English 3
+                                    <span class="subject-code">ENG103</span>
+                                </div>
+                                <div class="subject-description">مستوى متقدم في اللغة الإنجليزية التقنية</div>
+                                <div class="subject-details">
+                                    <i class="fas fa-clock"></i> 2 ساعة أسبوعياً
+                                </div>
+                            </div>
+                        </li>
+                        <li class="subject-item" onclick="window.location.href='Modernization of Railway and High speed Trains.HTML'">
+                            <i class="fas fa-train subject-icon"></i>
+                            <div>
+                                <div class="subject-name">Modernization of Railway and High speed Trains
+                                    <span class="subject-code">RLW201</span>
+                                </div>
+                                <div class="subject-description">تحديث السكك الحديدية وتكنولوجيا القطارات فائقة السرعة</div>
+                                <div class="subject-details">
+                                    <i class="fas fa-clock"></i> 4 ساعات أسبوعياً
+                                </div>
+                            </div>
+                        </li>
+                        <li class="subject-item" onclick="window.location.href='Modern Welded railway Track .HTML'">
+                            <i class="fas fa-tools subject-icon"></i>
+                            <div>
+                                <div class="subject-name">Modern Welded railway Track
+                                    <span class="subject-code">RLW202</span>
+                                </div>
+                                <div class="subject-description">تكنولوجيا السكك الحديدية الملحومة الحديثة</div>
+                                <div class="subject-details">
+                                    <i class="fas fa-clock"></i> 3 ساعات أسبوعياً
+                                </div>
+                            </div>
+                        </li>
+                        <li class="subject-item" onclick="window.location.href='Testing of railway tracks.HTML'">
+                            <i class="fas fa-vial subject-icon"></i>
+                            <div>
+                                <div class="subject-name">Testing of railway tracks
+                                    <span class="subject-code">RLW203</span>
+                                </div>
+                                <div class="subject-description">اختبارات وفحص جودة السكك الحديدية</div>
+                                <div class="subject-details">
+                                    <i class="fas fa-clock"></i> 3 ساعات أسبوعياً
+                                </div>
+                            </div>
+                        </li>
+                        <li class="subject-item" onclick="window.location.href='Types & Testing Of Assembly in Railway tracks.HTML'">
+                            <i class="fas fa-puzzle-piece subject-icon"></i>
+                            <div>
+                                <div class="subject-name">Types & Testing Of Assembly in Railway tracks
+                                    <span class="subject-code">RLW204</span>
+                                </div>
+                                <div class="subject-description">أنواع واختبارات تجميع مكونات السكك الحديدية</div>
+                                <div class="subject-details">
+                                    <i class="fas fa-clock"></i> 2 ساعة أسبوعياً
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <button class="close-btn" onclick="hideSubjects('semester1-subjects')">
+                        <i class="fas fa-times"></i> إغلاق
+                    </button>
+                </div>
             </div>
             
-            <div class="form-group">
-                <label for="password">كلمة المرور</label>
-                <input type="password" id="password" required placeholder="أدخل كلمة المرور">
+            <div class="semester-card semester-2">
+                <h2 class="semester-title">الترم الثاني</h2>
+                <p class="semester-content">
+                    هنا مواد الترم الثاني الي دوس هنا 👇
+                </p>
+                
+                <button class="btn" id="show-semester2">
+                    <i class="fas fa-book-open"></i> عرض مواد الترم الثاني
+                </button>
+                
+                <div class="subjects-container" id="semester2-subjects">
+                    <h3 style="margin: 20px 0 15px; text-align: center;">مواد الترم الثاني</h3>
+                    <ul class="subject-list">
+                        <li class="subject-item" onclick="window.location.href='Advanced Railway Systems.HTML'">
+                            <i class="fas fa-bolt subject-icon"></i>
+                            <div>
+                                <div class="subject-name">Advanced Railway Systems
+                                    <span class="subject-code">RLW301</span>
+                                </div>
+                                <div class="subject-description">أنظمة السكك الحديدية المتقدمة وتقنيات التحكم</div>
+                                <div class="subject-details">
+                                    <i class="fas fa-clock"></i> 4 ساعات أسبوعياً
+                                </div>
+                            </div>
+                        </li>
+                        <li class="subject-item" onclick="window.location.href='Railway Electronics.HTML'">
+                            <i class="fas fa-microchip subject-icon"></i>
+                            <div>
+                                <div class="subject-name">Railway Electronics
+                                    <span class="subject-code">RLW302</span>
+                                </div>
+                                <div class="subject-description">الإلكترونيات وتطبيقاتها في أنظمة السكك الحديدية</div>
+                                <div class="subject-details">
+                                    <i class="fas fa-clock"></i> 3 ساعات أسبوعياً
+                                </div>
+                            </div>
+                        </li>
+                        <li class="subject-item" onclick="window.location.href='Railway Safety & Security.HTML'">
+                            <i class="fas fa-shield-alt subject-icon"></i>
+                            <div>
+                                <div class="subject-name">Railway Safety & Security
+                                    <span class="subject-code">RLW303</span>
+                                </div>
+                                <div class="subject-description">أنظمة السلامة والأمان في السكك الحديدية</div>
+                                <div class="subject-details">
+                                    <i class="fas fa-clock"></i> 2 ساعة أسبوعياً
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <button class="close-btn" onclick="hideSubjects('semester2-subjects')">
+                        <i class="fas fa-times"></i> إغلاق
+                    </button>
+                </div>
             </div>
-            
-            <div class="form-group">
-                <label for="userType">نوع المستخدم</label>
-                <select id="userType" required>
-                    <option value="">اختر نوع المستخدم</option>
-                    <option value="student">طالب</option>
-                    <option value="admin">مسؤول</option>
-                </select>
-            </div>
-            
-            <button type="submit" class="btn">
-                <i class="fas fa-sign-in-alt"></i> دخول
-            </button>
-            <div class="error" id="errorMessage">اسم المستخدم أو كلمة المرور غير صحيحة</div>
-        </form>
+        </div>
 
-        <div class="login-info">
-            <h3><i class="fas fa-info-circle"></i> معلومات الدخول للتجربة</h3>
-            <div class="credentials">
-                <div class="credential-item">
-                    <span class="credential-type">مسؤول:</span>
-                    <span>اسم المستخدم: 131331 | كلمة المرور: Aty2022#</span>
+        <!-- زر الجدول -->
+        <div class="schedule-btn-container">
+            <a href="TAB.HTML" class="schedule-btn">
+                <i class="fas fa-calendar-alt"></i>
+                <div class="btn-text">
+                    <span class="btn-main-text">الجدول الدراسي</span>
+                    <span class="btn-sub-text">اضغط لعرض الجدول</span>
                 </div>
-                <div class="credential-item">
-                    <span class="credential-type">طالب:</span>
-                    <span>اسم المستخدم: student | كلمة المرور: student123</span>
-                </div>
-            </div>
+            </a>
         </div>
     </div>
 
     <script>
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+        // إضافة تأثيرات تفاعلية
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.semester-card');
             
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            const userType = document.getElementById('userType').value;
-            
-            // بيانات المستخدمين المخزنة (في تطبيق حقيقي، يجب أن تكون في قاعدة بيانات)
-            const users = {
-                '131331': { password: 'Aty2022#', type: 'admin' },
-                'student': { password: 'student123', type: 'student' }
-            };
-            
-            if (users[username] && users[username].password === password && users[username].type === userType) {
-                // إضافة تأثير النجاح
-                document.querySelector('.login-container').style.animation = 'successPulse 0.5s ease';
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-15px) scale(1.02)';
+                });
                 
-                // حفظ بيانات المستخدم في localStorage
-                localStorage.setItem('currentUser', JSON.stringify({
-                    username: username,
-                    type: userType
-                }));
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+            
+            // دالة لإغلاق جميع المواد
+            function closeAllSubjects() {
+                const allSubjects = document.querySelectorAll('.subjects-container');
+                const allButtons = document.querySelectorAll('.btn');
                 
-                // توجيه إلى الصفحة الرئيسية بعد تأخير بسيط
-                setTimeout(() => {
-                    window.location.href = '1.html';
-                }, 500);
-            } else {
-                document.getElementById('errorMessage').style.display = 'block';
-                // تأثير اهتزاز عند الخطأ
-                document.querySelector('.login-container').style.animation = 'shake 0.5s ease';
-                setTimeout(() => {
-                    document.querySelector('.login-container').style.animation = '';
-                }, 500);
-            }
-        });
-
-        // إضافة تأثير اهتزاز للعنصر
-        const shakeKeyframes = `
-            @keyframes shake {
-                0%, 100% { transform: translateX(0); }
-                10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-                20%, 40%, 60%, 80% { transform: translateX(5px); }
+                allSubjects.forEach(subject => {
+                    subject.classList.remove('show');
+                });
+                
+                allButtons.forEach(button => {
+                    if (button.id.startsWith('show-semester')) {
+                        button.style.display = 'block';
+                    }
+                });
             }
             
-            @keyframes successPulse {
-                0% { transform: scale(1); }
-                50% { transform: scale(1.02); }
-                100% { transform: scale(1); }
-            }
-        `;
-        
-        const styleSheet = document.createElement('style');
-        styleSheet.innerText = shakeKeyframes;
-        document.head.appendChild(styleSheet);
-
-        // تأثير اهتزاز خفيف للقطار
-        const train = document.querySelector('.train');
-        setInterval(() => {
-            train.style.transform = 'translateY(-3px)';
+            // عرض مواد الترم الأول
+            document.getElementById('show-semester1').addEventListener('click', function() {
+                closeAllSubjects();
+                const subjectsContainer = document.getElementById('semester1-subjects');
+                subjectsContainer.classList.add('show');
+                this.style.display = 'none';
+            });
+            
+            // عرض مواد الترم الثاني
+            document.getElementById('show-semester2').addEventListener('click', function() {
+                closeAllSubjects();
+                const subjectsContainer = document.getElementById('semester2-subjects');
+                subjectsContainer.classList.add('show');
+                this.style.display = 'none';
+            });
+            
+            // تأثير تحميل الصفحة
             setTimeout(() => {
-                train.style.transform = 'translateY(0)';
-            }, 150);
-        }, 3000);
-        // الكود الغلط اللي عندك
-window.location.href = '1.HTML';
+                document.body.style.opacity = 1;
+            }, 100);
+            
+            // تأثير اهتزاز خفيف للقطار
+            const train = document.querySelector('.train');
+            setInterval(() => {
+                train.style.transform = 'translateY(-3px)';
+                setTimeout(() => {
+                    train.style.transform = 'translateY(0)';
+                }, 150);
+            }, 3000);
+        });
+        
+        // إخفاء قائمة المواد
+        function hideSubjects(containerId) {
+            const container = document.getElementById(containerId);
+            container.classList.remove('show');
+            
+            // إعادة عرض الزر بعد إخفاء القائمة
+            setTimeout(() => {
+                if (containerId === 'semester1-subjects') {
+                    document.getElementById('show-semester1').style.display = 'block';
+                } else {
+                    document.getElementById('show-semester2').style.display = 'block';
+                }
+            }, 500);
+        }
     </script>
 </body>
 </html>
-
-
-

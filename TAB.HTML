@@ -24,6 +24,8 @@
             min-height: 100vh;
             overflow-x: hidden;
             padding: 20px;
+            opacity: 0;
+            transition: opacity 0.8s ease;
         }
         
         .container {
@@ -35,18 +37,33 @@
             text-align: center;
             padding: 20px 0;
             margin-bottom: 30px;
+            animation: fadeInDown 1s ease;
         }
         
         h1 {
             font-size: 2.5rem;
             margin-bottom: 10px;
             text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+            position: relative;
+            display: inline-block;
+        }
+        
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            right: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #3498db, transparent);
+            border-radius: 3px;
         }
         
         .subtitle {
             font-size: 1.2rem;
             opacity: 0.9;
             margin-bottom: 30px;
+            animation: fadeIn 1.5s ease;
         }
 
         /* أيام الأسبوع */
@@ -56,6 +73,7 @@
             gap: 15px;
             margin-bottom: 30px;
             flex-wrap: wrap;
+            animation: fadeInUp 1s ease;
         }
 
         .day-btn {
@@ -70,17 +88,36 @@
             font-weight: bold;
             backdrop-filter: blur(10px);
             border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .day-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .day-btn:hover::before {
+            left: 100%;
         }
 
         .day-btn:hover {
             background: rgba(255, 255, 255, 0.2);
             transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
 
         .day-btn.active {
             background: rgba(52, 152, 219, 0.6);
             border-color: #3498db;
             transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(52, 152, 219, 0.3);
         }
 
         /* جدول اليوم */
@@ -92,6 +129,19 @@
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
             display: none;
             animation: fadeIn 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .day-schedule::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, #3498db, #2ecc71, #e74c3c);
+            border-radius: 0 15px 15px 0;
         }
 
         .day-schedule.active {
@@ -105,12 +155,25 @@
             color: #3498db;
             padding-bottom: 15px;
             border-bottom: 2px solid rgba(52, 152, 219, 0.5);
+            position: relative;
+        }
+
+        .day-title::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            right: 50%;
+            transform: translateX(50%);
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #3498db, transparent);
         }
 
         .schedule-table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
+            animation: fadeIn 0.8s ease;
         }
 
         .schedule-table th {
@@ -119,23 +182,65 @@
             text-align: center;
             border: 1px solid rgba(255, 255, 255, 0.2);
             font-size: 1.1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .schedule-table th::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .schedule-table th:hover::after {
+            left: 100%;
         }
 
         .schedule-table td {
             padding: 15px;
             text-align: center;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: background 0.3s ease;
+            transition: all 0.3s ease;
+            position: relative;
         }
 
         .schedule-table tr:hover td {
             background: rgba(255, 255, 255, 0.1);
         }
 
+        .schedule-table tr {
+            animation: fadeInRow 0.5s ease;
+            animation-fill-mode: both;
+        }
+
+        .schedule-table tr:nth-child(1) { animation-delay: 0.1s; }
+        .schedule-table tr:nth-child(2) { animation-delay: 0.2s; }
+        .schedule-table tr:nth-child(3) { animation-delay: 0.3s; }
+        .schedule-table tr:nth-child(4) { animation-delay: 0.4s; }
+        .schedule-table tr:nth-child(5) { animation-delay: 0.5s; }
+        .schedule-table tr:nth-child(6) { animation-delay: 0.6s; }
+
         .time-cell {
             background: rgba(231, 76, 60, 0.2);
             font-weight: bold;
             width: 150px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .time-cell::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: #e74c3c;
         }
 
         .lecture-cell {
@@ -146,6 +251,7 @@
         .location-cell {
             width: 120px;
             font-weight: 500;
+            position: relative;
         }
 
         .lecture-name {
@@ -162,14 +268,41 @@
 
         .location-online {
             background: rgba(52, 152, 219, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .location-online::before {
+            content: '\f0c2';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            margin-left: 5px;
         }
 
         .location-lab {
             background: rgba(155, 89, 182, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .location-lab::before {
+            content: '\f0c3';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            margin-left: 5px;
         }
 
         .location-class {
             background: rgba(46, 204, 113, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .location-class::before {
+            content: '\f19d';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            margin-left: 5px;
         }
 
         /* القطار المتحرك المحسن */
@@ -254,6 +387,7 @@
             border: 4px solid #7f8c8d;
             position: relative;
             box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            animation: rotateWheel 1s linear infinite;
         }
         
         .wheel::before {
@@ -420,6 +554,11 @@
                 box-shadow: 0 0 30px 15px rgba(241, 196, 15, 0.9);
                 transform: scale(1.1);
             }
+        }
+        
+        @keyframes rotateWheel {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
         
         /* تأثير الدخان المحسن والواقعي */
@@ -612,11 +751,11 @@
 
         /* تصميم متجاوب */
         @media (max-width: 768px) {
-            .nav-tabs {
+            .days-nav {
                 flex-direction: column;
             }
             
-            .tab-btn {
+            .day-btn {
                 justify-content: center;
             }
             
@@ -624,8 +763,9 @@
                 font-size: 1.8rem;
             }
             
-            .info-grid, .videos-grid, .sheets-grid, .files-grid {
-                grid-template-columns: 1fr;
+            .schedule-table {
+                display: block;
+                overflow-x: auto;
             }
             
             .train {
@@ -659,6 +799,21 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInRow {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
         .back-btn {
             background: rgba(255, 255, 255, 0.1);
             color: white;
@@ -676,6 +831,27 @@
         .back-btn:hover {
             background: rgba(255, 255, 255, 0.2);
             transform: translateX(-5px);
+        }
+
+        /* تأثيرات إضافية */
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
         }
     </style>
 </head>
@@ -717,13 +893,13 @@
     
     <div class="container">
         <header>
-            <h1>الجدول الدراسي</h1>
+            <h1 class="floating">الجدول الدراسي</h1>
             <p class="subtitle">الترم الأول - قسم هندسة السكك الحديدية</p>
         </header>
         
         <!-- أيام الأسبوع -->
         <div class="days-nav">
-            <button class="day-btn active" onclick="showDay('sunday')">الأحد</button>
+            <button class="day-btn active pulse" onclick="showDay('sunday')">الأحد</button>
             <button class="day-btn" onclick="showDay('monday')">الاثنين</button>
             <button class="day-btn" onclick="showDay('wednesday')">الأربعاء</button>
         </div>
@@ -886,11 +1062,13 @@
             const allButtons = document.querySelectorAll('.day-btn');
             allButtons.forEach(button => {
                 button.classList.remove('active');
+                button.classList.remove('pulse');
             });
             
             // إظهار الجدول المحدد وإضافة النشاط للزر
             document.getElementById(dayId).classList.add('active');
             event.target.classList.add('active');
+            event.target.classList.add('pulse');
         }
 
         // تأثير تحميل الصفحة
@@ -898,6 +1076,20 @@
             setTimeout(() => {
                 document.body.style.opacity = 1;
             }, 100);
+            
+            // إضافة تأثيرات عشوائية للخلايا
+            const cells = document.querySelectorAll('.schedule-table td');
+            cells.forEach(cell => {
+                cell.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.02)';
+                    this.style.zIndex = '10';
+                });
+                
+                cell.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                    this.style.zIndex = '1';
+                });
+            });
         });
     </script>
 </body>

@@ -1,0 +1,617 @@
+/* التنسيقات العامة */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                url('01.JPG');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: #fff;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    padding: 40px 0;
+    animation: fadeIn 1.5s ease-out;
+}
+
+h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    margin-bottom: 30px;
+}
+
+/* قسم الفصول الدراسية */
+.semesters {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.semester-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 30px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.semester-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+}
+
+.semester-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+}
+
+.semester-1::before {
+    background: linear-gradient(90deg, #3498db, #2ecc71);
+}
+
+.semester-2::before {
+    background: linear-gradient(90deg, #e74c3c, #f39c12);
+}
+
+.semester-title {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.semester-content {
+    line-height: 1.6;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.btn {
+    display: inline-block;
+    background: linear-gradient(45deg, #ff8a00, #e52e71);
+    color: white;
+    padding: 12px 25px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.btn-secondary {
+    background: linear-gradient(45deg, #3498db, #2ecc71);
+    margin-top: 5px;
+}
+
+/* زر الجدول */
+.schedule-btn-container {
+    text-align: center;
+    margin: 40px 0;
+}
+
+.schedule-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background: linear-gradient(45deg, #9b59b6, #8e44ad);
+    color: white;
+    padding: 18px 35px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.3rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 25px rgba(155, 89, 182, 0.4);
+    border: none;
+    cursor: pointer;
+    min-width: 220px;
+}
+
+.schedule-btn:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 12px 35px rgba(155, 89, 182, 0.6);
+}
+
+.schedule-btn i {
+    font-size: 1.5rem;
+}
+
+.btn-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.btn-main-text {
+    font-size: 1.3rem;
+}
+
+.btn-sub-text {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    font-weight: normal;
+}
+
+/* الأنيميشن */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-50px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInRight {
+    from { opacity: 0; transform: translateX(50px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+.semester-1 {
+    animation: slideInLeft 1s ease-out;
+}
+
+.semester-2 {
+    animation: slideInRight 1s ease-out;
+}
+
+/* القطار المتحرك المحسن */
+.train-container {
+    position: fixed;
+    bottom: 20px;
+    left: 0;
+    width: 100%;
+    height: 180px;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.train {
+    position: absolute;
+    bottom: 0;
+    left: -500px;
+    width: 500px;
+    height: 150px;
+    animation: moveTrain 30s linear infinite;
+}
+
+/* جسم القطار الرئيسي */
+.train-body {
+    position: absolute;
+    bottom: 30px;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    background: linear-gradient(90deg, #2c3e50, #34495e, #2c3e50);
+    border-radius: 10px 10px 0 0;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}
+
+/* كابينة القيادة */
+.train-cabin {
+    position: absolute;
+    bottom: 110px;
+    left: 30px;
+    width: 140px;
+    height: 70px;
+    background: linear-gradient(90deg, #e74c3c, #c0392b);
+    border-radius: 8px 8px 0 0;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+}
+
+/* نوافذ الكابينة */
+.cabin-window {
+    position: absolute;
+    top: 12px;
+    width: 45px;
+    height: 35px;
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    border: 2px solid #2c3e50;
+    border-radius: 4px;
+}
+
+.cabin-window:nth-child(1) {
+    left: 15px;
+}
+
+.cabin-window:nth-child(2) {
+    left: 75px;
+}
+
+/* عجلات القطار المحسنة */
+.train-wheels {
+    position: absolute;
+    bottom: 15px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 25px;
+}
+
+.wheel {
+    width: 35px;
+    height: 35px;
+    background: #2c3e50;
+    border-radius: 50%;
+    border: 4px solid #7f8c8d;
+    position: relative;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+
+.wheel::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 15px;
+    height: 15px;
+    background: #95a5a6;
+    border-radius: 50%;
+}
+
+.wheel::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 6px;
+    height: 6px;
+    background: #ecf0f1;
+    border-radius: 50%;
+}
+
+/* مصابيح أمامية محسنة */
+.train-headlight {
+    position: absolute;
+    bottom: 70px;
+    left: 5px;
+    width: 25px;
+    height: 25px;
+    background: #f1c40f;
+    border-radius: 50%;
+    box-shadow: 0 0 25px 12px rgba(241, 196, 15, 0.8);
+    animation: headlightPulse 1.5s infinite alternate;
+    z-index: 2;
+}
+
+/* تفاصيل إضافية */
+.train-details {
+    position: absolute;
+    top: 20px;
+    left: 180px;
+    width: 220px;
+    height: 40px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ecf0f1;
+    font-size: 14px;
+    font-weight: bold;
+    border: 1px solid rgba(255,255,255,0.2);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+/* مسار القطار المحسن */
+.train-track {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background: linear-gradient(to bottom, #5d4037, #4e342e);
+    z-index: -2;
+    overflow: hidden;
+}
+
+.rail {
+    position: absolute;
+    top: 15px;
+    width: 100%;
+    height: 12px;
+    background: linear-gradient(to bottom, #78909c, #546e7a);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.rail::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(to bottom, #b0bec5, #90a4ae);
+    border-radius: 2px 2px 0 0;
+}
+
+.rail::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(to bottom, #90a4ae, #78909c);
+    border-radius: 0 0 2px 2px;
+}
+
+.sleepers {
+    position: absolute;
+    top: 27px;
+    left: 0;
+    width: 100%;
+    height: 15px;
+    background: repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 95px,
+        #8d6e63 95px,
+        #8d6e63 115px
+    );
+}
+
+.sleeper {
+    position: absolute;
+    top: 0;
+    width: 20px;
+    height: 15px;
+    background: #6d4c41;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+.ballast {
+    position: absolute;
+    top: 42px;
+    left: 0;
+    width: 100%;
+    height: 18px;
+    background: linear-gradient(to bottom, #795548, #6d4c41);
+}
+
+.ballast::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20px 5px, #8d6e63 2px, transparent 3px),
+        radial-gradient(circle at 50px 8px, #8d6e63 2px, transparent 3px),
+        radial-gradient(circle at 80px 12px, #8d6e63 2px, transparent 3px),
+        radial-gradient(circle at 120px 7px, #8d6e63 2px, transparent 3px),
+        radial-gradient(circle at 160px 10px, #8d6e63 2px, transparent 3px);
+    background-size: 200px 18px;
+}
+
+/* أنيميشن القطار */
+@keyframes moveTrain {
+    0% { left: -500px; }
+    100% { left: 100%; }
+}
+
+@keyframes headlightPulse {
+    0% { 
+        box-shadow: 0 0 20px 8px rgba(241, 196, 15, 0.6);
+        transform: scale(1);
+    }
+    100% { 
+        box-shadow: 0 0 30px 15px rgba(241, 196, 15, 0.9);
+        transform: scale(1.1);
+    }
+}
+
+/* تأثير الدخان المحسن */
+.smoke {
+    position: absolute;
+    top: -15px;
+    left: 160px;
+    width: 25px;
+    height: 25px;
+    background: rgba(255,255,255,0.9);
+    border-radius: 50% 50% 50% 0;
+    animation: smokeAnimation 4s infinite;
+    filter: blur(2px);
+}
+
+.smoke:nth-child(2) {
+    animation-delay: 0.7s;
+    left: 150px;
+    width: 22px;
+    height: 22px;
+}
+
+.smoke:nth-child(3) {
+    animation-delay: 1.4s;
+    left: 140px;
+    width: 20px;
+    height: 20px;
+}
+
+@keyframes smokeAnimation {
+    0% { 
+        transform: translateY(0) scale(1) rotate(0deg);
+        opacity: 0.9;
+    }
+    50% {
+        transform: translateY(-40px) scale(1.5) rotate(10deg);
+        opacity: 0.6;
+    }
+    100% { 
+        transform: translateY(-80px) scale(2) rotate(20deg);
+        opacity: 0;
+    }
+}
+
+/* تصميم متجاوب */
+@media (max-width: 768px) {
+    .semesters {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .semester-card {
+        max-width: 100%;
+    }
+    
+    h1 {
+        font-size: 2.2rem;
+    }
+
+    .schedule-btn {
+        padding: 15px 25px;
+        font-size: 1.1rem;
+        min-width: 200px;
+    }
+
+    .btn-main-text {
+        font-size: 1.1rem;
+    }
+    
+    .train {
+        width: 350px;
+        height: 120px;
+    }
+    
+    .train-cabin {
+        width: 100px;
+        height: 50px;
+        bottom: 90px;
+    }
+    
+    .cabin-window {
+        width: 35px;
+        height: 25px;
+    }
+    
+    .cabin-window:nth-child(2) {
+        left: 60px;
+    }
+}
+
+/* تفاصيل المواد */
+.subjects-container {
+    margin-top: 20px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+}
+
+.subjects-container.show {
+    max-height: 800px;
+}
+
+.subject-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.subject-item {
+    background: rgba(255, 255, 255, 0.1);
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.subject-item:hover {
+    transform: translateX(10px);
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.subject-icon {
+    margin-left: 15px;
+    font-size: 1.5rem;
+    color: #3498db;
+}
+
+.subject-name {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.subject-description {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    margin-top: 5px;
+}
+
+.subject-details {
+    margin-top: 8px;
+    font-size: 0.85rem;
+    color: #ddd;
+}
+
+.subject-code {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    margin-left: 10px;
+}
+
+.close-btn {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: background 0.3s ease;
+    width: 100%;
+}
+
+.close-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}

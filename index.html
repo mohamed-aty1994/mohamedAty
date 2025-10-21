@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الفصول الدراسية - الترم الأول والثاني</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- مسار القطار المحسن -->
+    <div class="train-track">
+        <div class="rail"></div>
+        <div class="sleepers"></div>
+        <div class="ballast"></div>
+    </div>
+    
+    <!-- القطار المتحرك المحسن -->
+    <div class="train-container">
+        <div class="train">
+            <div class="smoke"></div>
+            <div class="smoke"></div>
+            <div class="smoke"></div>
+            <div class="train-body"></div>
+            <div class="train-cabin">
+                <div class="cabin-window"></div>
+                <div class="cabin-window"></div>
+            </div>
+            <div class="train-headlight"></div>
+            <div class="train-details">RAILWAY ACADEMY</div>
+            <div class="train-wheels">
+                <div class="wheel"></div>
+                <div class="wheel"></div>
+                <div class="wheel"></div>
+                <div class="wheel"></div>
+                <div class="wheel"></div>
+                <div class="wheel"></div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <header>
+            <h1>الفصول الدراسية</h1>
+            <p class="subtitle">اختر الفصل الدراسي</p>
+        </header>
+        
+        <div class="semesters">
+            <div class="semester-card semester-1">
+                <h2 class="semester-title">الترم الأول</h2>
+                <p class="semester-content">
+                    هنا مواد الترم الاول الي دوس هنا 👇
+                </p>
+                
+                <button class="btn" id="show-semester1">
+                    <i class="fas fa-book-open"></i> عرض مواد الترم الأول
+                </button>
+                
+                <div class="subjects-container" id="semester1-subjects">
+                    <h3 style="margin: 20px 0 15px; text-align: center;">مواد الترم الأول</h3>
+                    <ul class="subject-list">
+                        <li class="subject-item" onclick="window.location.href='Applied Mechanics.HTML'">
+                            <i class="fas fa-cogs subject-icon"></i>
+                            <div>
+                                <div class="subject-name">Applied Mechanics
+                                    <span class="subject-code">MEC101</span>
+                                </div>
+                                <div class="subject-description">دراسة الميكانيكا التطبيقية في هندسة السكك الحديدية</div>
+                                <div class="subject-details">
+                                    <i class="fas fa-clock"></i> 3 ساعات أسبوعياً
+                                </div>
+                            </div>
+                        </li>
+                        <li class="subject-item" onclick="window.location.href='English 3.HTML'">
+                            <i class="fas fa-language subject-icon"></i>
+                            <div>
+                                <div class="subject-name">English 3
+                                    <span class="subject-code">ENG103</span>
+                                </div>
+                                <div class="subject-description">مستوى متقدم في اللغة الإنجليزية التقنية</div>
+                                <div class="subject-details">
+                                    <i class="fas fa-clock"></i> 2 ساعة أسبوعياً
+                                </div>
+                            </div>
+                        </li>
+                        <li class="subject-item" onclick="window.location.href='Modernization of Railway and High speed Trains.HTML'">
+                            <i class="fas fa-train subject-icon"></i>
+                            <div>
+                                <div class="subject-name">Modernization of Railway and High speed Trains
+                                    <span class="subject-code">RLW201</span>
+                                </div>
+                                <div class="subject-description">تحديث السكك الحديدية وتكنولوجيا القطارات فائقة السرعة</div>
+                                <div class="subject-details">
+                                    <i class="fas fa-clock"></i> 4 ساعات أسبوعياً
+                                </div>
+                            </div>
+                        </li>
+                        <li class="subject-item" onclick="window.location.href='Modern Welded railway Track .HTML'">
+                            <i class="fas fa-tools subject-icon"></i>
+                            <div>
+                                <div class="subject-name">Modern Welded railway Track
+                                    <span class="subject-code">RLW202</span>
+                                </div>
+                                <div class="subject-description">تكنولوجيا السكك الحديدية الملحومة الحديثة</div>
+                                <div class="subject-details">
+                                    <i class="fas fa-clock"></i> 3 ساعات أسبوعياً
+                                </div>
+                            </div>
+                        </li>
+                        <li class="subject-item" onclick="window.location.href='Testing of railway tracks.HTML'">
+                            <i class="fas fa-vial subject-icon"></i>
+                            <div>
+                                <div class="subject-name">Testing of railway tracks
+                                    <span class="subject-code">RLW203</span>
+                                </div>
+                                <div class="subject-description">اختبارات وفحص جودة السكك الحديدية</div>
+                                <div class="subject-details">
+                                    <i class="fas fa-clock"></i> 3 ساعات أسبوعياً
+                                </div>
+                            </div>
+                        </li>
+                        <li class="subject-item" onclick="window.location.href='Types & Testing Of Assembly in Railway tracks.HTML'">
+                            <i class="fas fa-puzzle-piece subject-icon"></i>
+                            <div>
+                                <div class="subject-name">Types & Testing Of Assembly in Railway tracks
+                                    <span class="subject-code">RLW204</span>
+                                </div>
+                                <div class="subject-description">أنواع واختبارات تجميع مكونات السكك الحديدية</div>
+                                <div class="subject-details">
+                                    <i class="fas fa-clock"></i> 2 ساعة أسبوعياً
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <button class="close-btn" onclick="hideSubjects('semester1-subjects')">
+                        <i class="fas fa-times"></i> إغلاق
+                    </button>
+                </div>
+            </div>
+            
+            <div class="semester-card semester-2">
+                <h2 class="semester-title">الترم الثاني</h2>
+                <p class="semester-content">
+                    هنا مواد الترم الثاني الي دوس هنا 👇
+                </p>
+                
+                <button class="btn" id="show-semester2">
+                    <i class="fas fa-book-open"></i> عرض مواد الترم الثاني
+                </button>
+                
+                <div class="subjects-container" id="semester2-subjects">
+                    <h3 style="margin: 20px 0 15px; text-align: center;">مواد الترم الثاني</h3>
+                    <ul class="subject-list">
+                        <li class="subject-item" onclick="window.location.href='Advanced Railway Systems.HTML'">
+                            <i class="fas fa-bolt subject-icon"></i>
+                            <div>
+                                <div class="subject-name">Advanced Railway Systems
+                                    <span class="subject-code">RLW301</span>
+                                </div>
+                                <div class="subject-description">أنظمة السكك الحديدية المتقدمة وتقنيات التحكم</div>
+                                <div class="subject-details">
+                                    <i class="fas fa-clock"></i> 4 ساعات أسبوعياً
+                                </div>
+                            </div>
+                        </li>
+                        <li class="subject-item" onclick="window.location.href='Railway Electronics.HTML'">
+                            <i class="fas fa-microchip subject-icon"></i>
+                            <div>
+                                <div class="subject-name">Railway Electronics
+                                    <span class="subject-code">RLW302</span>
+                                </div>
+                                <div class="subject-description">الإلكترونيات وتطبيقاتها في أنظمة السكك الحديدية</div>
+                                <div class="subject-details">
+                                    <i class="fas fa-clock"></i> 3 ساعات أسبوعياً
+                                </div>
+                            </div>
+                        </li>
+                        <li class="subject-item" onclick="window.location.href='Railway Safety & Security.HTML'">
+                            <i class="fas fa-shield-alt subject-icon"></i>
+                            <div>
+                                <div class="subject-name">Railway Safety & Security
+                                    <span class="subject-code">RLW303</span>
+                                </div>
+                                <div class="subject-description">أنظمة السلامة والأمان في السكك الحديدية</div>
+                                <div class="subject-details">
+                                    <i class="fas fa-clock"></i> 2 ساعة أسبوعياً
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <button class="close-btn" onclick="hideSubjects('semester2-subjects')">
+                        <i class="fas fa-times"></i> إغلاق
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- زر الجدول -->
+        <div class="schedule-btn-container">
+            <a href="TAB.HTML" class="schedule-btn">
+                <i class="fas fa-calendar-alt"></i>
+                <div class="btn-text">
+                    <span class="btn-main-text">الجدول الدراسي</span>
+                    <span class="btn-sub-text">اضغط لعرض الجدول</span>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

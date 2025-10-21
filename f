@@ -14,8 +14,8 @@
         }
         
         body {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
-                        url('01.JPG');
+           background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://pin.it/5vmHACy9c');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -763,4 +763,5 @@
     </script>
 </body>
 </html>
+
 

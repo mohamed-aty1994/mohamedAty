@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الفصول الدراسية - الترم الأول والثاني</title>
+    <title>الفصول الدراسية - تسجيل الدخول</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* التنسيقات العامة */
@@ -31,19 +31,145 @@
             padding: 20px;
         }
         
+        /* صفحة تسجيل الدخول */
+        #loginPage {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .login-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            width: 90%;
+            max-width: 450px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            z-index: 10;
+            position: relative;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+        }
+        
+        .subtitle {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            text-align: right;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 8px;
+            border: none;
+            background: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.5);
+            transform: scale(1.02);
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff8a00, #e52e71);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .error {
+            color: #ff6b6b;
+            margin-top: 10px;
+            display: none;
+            background: rgba(255, 107, 107, 0.1);
+            padding: 10px;
+            border-radius: 5px;
+            border-right: 3px solid #ff6b6b;
+        }
+
+        .login-info {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            text-align: right;
+        }
+
+        .login-info h3 {
+            margin-bottom: 10px;
+            color: #3498db;
+        }
+
+        .credentials {
+            margin-top: 10px;
+        }
+
+        .credential-item {
+            margin: 5px 0;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .credential-type {
+            font-weight: bold;
+            color: #2ecc71;
+        }
+        
+        /* الصفحة الرئيسية */
+        #mainPage {
+            display: none;
+        }
+        
         header {
             text-align: center;
             padding: 40px 0;
             animation: fadeIn 1.5s ease-out;
         }
         
-        h1 {
+        .main-title {
             font-size: 3rem;
             margin-bottom: 10px;
             text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
         }
         
-        .subtitle {
+        .main-subtitle {
             font-size: 1.2rem;
             opacity: 0.9;
             margin-bottom: 30px;
@@ -105,27 +231,6 @@
             text-align: center;
         }
         
-        .btn {
-            display: inline-block;
-            background: linear-gradient(45deg, #ff8a00, #e52e71);
-            color: white;
-            padding: 12px 25px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            text-align: center;
-            width: 100%;
-            margin-top: 10px;
-        }
-        
-        .btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-
         .btn-secondary {
             background: linear-gradient(45deg, #3498db, #2ecc71);
             margin-top: 5px;
@@ -509,7 +614,7 @@
                 max-width: 100%;
             }
             
-            h1 {
+            h1, .main-title {
                 font-size: 2.2rem;
             }
 
@@ -624,6 +729,39 @@
             background: rgba(255, 255, 255, 0.3);
         }
         
+        /* زر تسجيل الخروج */
+        .logout-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .logout-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        /* تأثيرات إضافية */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+        
+        @keyframes successPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
     </style>
 </head>
 <body>
@@ -658,177 +796,243 @@
         </div>
     </div>
     
-    <div class="container">
-        <header>
-            <h1>الفصول الدراسية</h1>
-            <p class="subtitle">اختر الفصل الدراسي</p>
-        </header>
-        
-        <div class="semesters">
-            <div class="semester-card semester-1">
-                <h2 class="semester-title">الترم الأول</h2>
-                <p class="semester-content">
-                    هنا مواد الترم الاول الي دوس هنا 👇
-                </p>
-                
-                <button class="btn" id="show-semester1">
-                    <i class="fas fa-book-open"></i> عرض مواد الترم الأول
-                </button>
-                
-                <div class="subjects-container" id="semester1-subjects">
-                    <h3 style="margin: 20px 0 15px; text-align: center;">مواد الترم الأول</h3>
-                    <ul class="subject-list">
-                        <li class="subject-item" onclick="window.location.href='Applied Mechanics.HTML'">
-                            <i class="fas fa-cogs subject-icon"></i>
-                            <div>
-                                <div class="subject-name">Applied Mechanics
-                                    <span class="subject-code">MEC101</span>
-                                </div>
-                                <div class="subject-description">دراسة الميكانيكا التطبيقية في هندسة السكك الحديدية</div>
-                                <div class="subject-details">
-                                    <i class="fas fa-clock"></i> 3 ساعات أسبوعياً
-                                </div>
-                            </div>
-                        </li>
-                        <li class="subject-item" onclick="window.location.href='English 3.HTML'">
-                            <i class="fas fa-language subject-icon"></i>
-                            <div>
-                                <div class="subject-name">English 3
-                                    <span class="subject-code">ENG103</span>
-                                </div>
-                                <div class="subject-description">مستوى متقدم في اللغة الإنجليزية التقنية</div>
-                                <div class="subject-details">
-                                    <i class="fas fa-clock"></i> 2 ساعة أسبوعياً
-                                </div>
-                            </div>
-                        </li>
-                        <li class="subject-item" onclick="window.location.href='Modernization of Railway and High speed Trains.HTML'">
-                            <i class="fas fa-train subject-icon"></i>
-                            <div>
-                                <div class="subject-name">Modernization of Railway and High speed Trains
-                                    <span class="subject-code">RLW201</span>
-                                </div>
-                                <div class="subject-description">تحديث السكك الحديدية وتكنولوجيا القطارات فائقة السرعة</div>
-                                <div class="subject-details">
-                                    <i class="fas fa-clock"></i> 4 ساعات أسبوعياً
-                                </div>
-                            </div>
-                        </li>
-                        <li class="subject-item" onclick="window.location.href='Modern Welded railway Track .HTML'">
-                            <i class="fas fa-tools subject-icon"></i>
-                            <div>
-                                <div class="subject-name">Modern Welded railway Track
-                                    <span class="subject-code">RLW202</span>
-                                </div>
-                                <div class="subject-description">تكنولوجيا السكك الحديدية الملحومة الحديثة</div>
-                                <div class="subject-details">
-                                    <i class="fas fa-clock"></i> 3 ساعات أسبوعياً
-                                </div>
-                            </div>
-                        </li>
-                        <li class="subject-item" onclick="window.location.href='Testing of railway tracks.HTML'">
-                            <i class="fas fa-vial subject-icon"></i>
-                            <div>
-                                <div class="subject-name">Testing of railway tracks
-                                    <span class="subject-code">RLW203</span>
-                                </div>
-                                <div class="subject-description">اختبارات وفحص جودة السكك الحديدية</div>
-                                <div class="subject-details">
-                                    <i class="fas fa-clock"></i> 3 ساعات أسبوعياً
-                                </div>
-                            </div>
-                        </li>
-                        <li class="subject-item" onclick="window.location.href='Types & Testing Of Assembly in Railway tracks.HTML'">
-                            <i class="fas fa-puzzle-piece subject-icon"></i>
-                            <div>
-                                <div class="subject-name">Types & Testing Of Assembly in Railway tracks
-                                    <span class="subject-code">RLW204</span>
-                                </div>
-                                <div class="subject-description">أنواع واختبارات تجميع مكونات السكك الحديدية</div>
-                                <div class="subject-details">
-                                    <i class="fas fa-clock"></i> 2 ساعة أسبوعياً
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                    <button class="close-btn" onclick="hideSubjects('semester1-subjects')">
-                        <i class="fas fa-times"></i> إغلاق
-                    </button>
-                </div>
-            </div>
+    <!-- صفحة تسجيل الدخول -->
+    <div id="loginPage">
+        <div class="login-container">
+            <h1>تسجيل الدخول</h1>
+            <p class="subtitle">الرجاء إدخال بيانات الدخول</p>
             
-            <div class="semester-card semester-2">
-                <h2 class="semester-title">الترم الثاني</h2>
-                <p class="semester-content">
-                    هنا مواد الترم الثاني الي دوس هنا 👇
-                </p>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">اسم المستخدم</label>
+                    <input type="text" id="username" required placeholder="أدخل اسم المستخدم">
+                </div>
                 
-                <button class="btn" id="show-semester2">
-                    <i class="fas fa-book-open"></i> عرض مواد الترم الثاني
+                <div class="form-group">
+                    <label for="password">كلمة المرور</label>
+                    <input type="password" id="password" required placeholder="أدخل كلمة المرور">
+                </div>
+                
+                <div class="form-group">
+                    <label for="userType">نوع المستخدم</label>
+                    <select id="userType" required>
+                        <option value="">اختر نوع المستخدم</option>
+                        <option value="student">طالب</option>
+                        <option value="admin">مسؤول</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="btn">
+                    <i class="fas fa-sign-in-alt"></i> دخول
                 </button>
-                
-                <div class="subjects-container" id="semester2-subjects">
-                    <h3 style="margin: 20px 0 15px; text-align: center;">مواد الترم الثاني</h3>
-                    <ul class="subject-list">
-                        <li class="subject-item" onclick="window.location.href='Advanced Railway Systems.HTML'">
-                            <i class="fas fa-bolt subject-icon"></i>
-                            <div>
-                                <div class="subject-name">Advanced Railway Systems
-                                    <span class="subject-code">RLW301</span>
-                                </div>
-                                <div class="subject-description">أنظمة السكك الحديدية المتقدمة وتقنيات التحكم</div>
-                                <div class="subject-details">
-                                    <i class="fas fa-clock"></i> 4 ساعات أسبوعياً
-                                </div>
-                            </div>
-                        </li>
-                        <li class="subject-item" onclick="window.location.href='Railway Electronics.HTML'">
-                            <i class="fas fa-microchip subject-icon"></i>
-                            <div>
-                                <div class="subject-name">Railway Electronics
-                                    <span class="subject-code">RLW302</span>
-                                </div>
-                                <div class="subject-description">الإلكترونيات وتطبيقاتها في أنظمة السكك الحديدية</div>
-                                <div class="subject-details">
-                                    <i class="fas fa-clock"></i> 3 ساعات أسبوعياً
-                                </div>
-                            </div>
-                        </li>
-                        <li class="subject-item" onclick="window.location.href='Railway Safety & Security.HTML'">
-                            <i class="fas fa-shield-alt subject-icon"></i>
-                            <div>
-                                <div class="subject-name">Railway Safety & Security
-                                    <span class="subject-code">RLW303</span>
-                                </div>
-                                <div class="subject-description">أنظمة السلامة والأمان في السكك الحديدية</div>
-                                <div class="subject-details">
-                                    <i class="fas fa-clock"></i> 2 ساعة أسبوعياً
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                    <button class="close-btn" onclick="hideSubjects('semester2-subjects')">
-                        <i class="fas fa-times"></i> إغلاق
-                    </button>
+                <div class="error" id="errorMessage">اسم المستخدم أو كلمة المرور غير صحيحة</div>
+            </form>
+
+            <div class="login-info">
+                <h3><i class="fas fa-info-circle"></i> معلومات الدخول للتجربة</h3>
+                <div class="credentials">
+                    <div class="credential-item">
+                        <span class="credential-type">مسؤول:</span>
+                        <span>اسم المستخدم: 131331 | كلمة المرور: Aty2022#</span>
+                    </div>
+                    <div class="credential-item">
+                        <span class="credential-type">طالب:</span>
+                        <span>اسم المستخدم: student | كلمة المرور: student123</span>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <!-- زر الجدول -->
-        <div class="schedule-btn-container">
-            <a href="TAB.HTML" class="schedule-btn">
-                <i class="fas fa-calendar-alt"></i>
-                <div class="btn-text">
-                    <span class="btn-main-text">الجدول الدراسي</span>
-                    <span class="btn-sub-text">اضغط لعرض الجدول</span>
+    </div>
+    
+    <!-- الصفحة الرئيسية -->
+    <div id="mainPage">
+        <button class="logout-btn" id="logoutBtn">
+            <i class="fas fa-sign-out-alt"></i> تسجيل الخروج
+        </button>
+        
+        <div class="container">
+            <header>
+                <h1 class="main-title">الفصول الدراسية</h1>
+                <p class="main-subtitle">اختر الفصل الدراسي</p>
+            </header>
+            
+            <div class="semesters">
+                <div class="semester-card semester-1">
+                    <h2 class="semester-title">الترم الأول</h2>
+                    <p class="semester-content">
+                        هنا مواد الترم الاول الي دوس هنا 👇
+                    </p>
+                    
+                    <button class="btn" id="show-semester1">
+                        <i class="fas fa-book-open"></i> عرض مواد الترم الأول
+                    </button>
+                    
+                    <div class="subjects-container" id="semester1-subjects">
+                        <h3 style="margin: 20px 0 15px; text-align: center;">مواد الترم الأول</h3>
+                        <ul class="subject-list">
+                            <li class="subject-item" onclick="window.location.href='Applied Mechanics.HTML'">
+                                <i class="fas fa-cogs subject-icon"></i>
+                                <div>
+                                    <div class="subject-name">Applied Mechanics
+                                        <span class="subject-code">MEC101</span>
+                                    </div>
+                                    <div class="subject-description">دراسة الميكانيكا التطبيقية في هندسة السكك الحديدية</div>
+                                    <div class="subject-details">
+                                        <i class="fas fa-clock"></i> 3 ساعات أسبوعياً
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="subject-item" onclick="window.location.href='English 3.HTML'">
+                                <i class="fas fa-language subject-icon"></i>
+                                <div>
+                                    <div class="subject-name">English 3
+                                        <span class="subject-code">ENG103</span>
+                                    </div>
+                                    <div class="subject-description">مستوى متقدم في اللغة الإنجليزية التقنية</div>
+                                    <div class="subject-details">
+                                        <i class="fas fa-clock"></i> 2 ساعة أسبوعياً
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="subject-item" onclick="window.location.href='Modernization of Railway and High speed Trains.HTML'">
+                                <i class="fas fa-train subject-icon"></i>
+                                <div>
+                                    <div class="subject-name">Modernization of Railway and High speed Trains
+                                        <span class="subject-code">RLW201</span>
+                                    </div>
+                                    <div class="subject-description">تحديث السكك الحديدية وتكنولوجيا القطارات فائقة السرعة</div>
+                                    <div class="subject-details">
+                                        <i class="fas fa-clock"></i> 4 ساعات أسبوعياً
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="subject-item" onclick="window.location.href='Modern Welded railway Track .HTML'">
+                                <i class="fas fa-tools subject-icon"></i>
+                                <div>
+                                    <div class="subject-name">Modern Welded railway Track
+                                        <span class="subject-code">RLW202</span>
+                                    </div>
+                                    <div class="subject-description">تكنولوجيا السكك الحديدية الملحومة الحديثة</div>
+                                    <div class="subject-details">
+                                        <i class="fas fa-clock"></i> 3 ساعات أسبوعياً
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="subject-item" onclick="window.location.href='Testing of railway tracks.HTML'">
+                                <i class="fas fa-vial subject-icon"></i>
+                                <div>
+                                    <div class="subject-name">Testing of railway tracks
+                                        <span class="subject-code">RLW203</span>
+                                    </div>
+                                    <div class="subject-description">اختبارات وفحص جودة السكك الحديدية</div>
+                                    <div class="subject-details">
+                                        <i class="fas fa-clock"></i> 3 ساعات أسبوعياً
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="subject-item" onclick="window.location.href='Types & Testing Of Assembly in Railway tracks.HTML'">
+                                <i class="fas fa-puzzle-piece subject-icon"></i>
+                                <div>
+                                    <div class="subject-name">Types & Testing Of Assembly in Railway tracks
+                                        <span class="subject-code">RLW204</span>
+                                    </div>
+                                    <div class="subject-description">أنواع واختبارات تجميع مكونات السكك الحديدية</div>
+                                    <div class="subject-details">
+                                        <i class="fas fa-clock"></i> 2 ساعة أسبوعياً
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <button class="close-btn" onclick="hideSubjects('semester1-subjects')">
+                            <i class="fas fa-times"></i> إغلاق
+                        </button>
+                    </div>
                 </div>
-            </a>
+                
+                <div class="semester-card semester-2">
+                    <h2 class="semester-title">الترم الثاني</h2>
+                    <p class="semester-content">
+                        هنا مواد الترم الثاني الي دوس هنا 👇
+                    </p>
+                    
+                    <button class="btn" id="show-semester2">
+                        <i class="fas fa-book-open"></i> عرض مواد الترم الثاني
+                    </button>
+                    
+                    <div class="subjects-container" id="semester2-subjects">
+                        <h3 style="margin: 20px 0 15px; text-align: center;">مواد الترم الثاني</h3>
+                        <ul class="subject-list">
+                            <li class="subject-item" onclick="window.location.href='Advanced Railway Systems.HTML'">
+                                <i class="fas fa-bolt subject-icon"></i>
+                                <div>
+                                    <div class="subject-name">Advanced Railway Systems
+                                        <span class="subject-code">RLW301</span>
+                                    </div>
+                                    <div class="subject-description">أنظمة السكك الحديدية المتقدمة وتقنيات التحكم</div>
+                                    <div class="subject-details">
+                                        <i class="fas fa-clock"></i> 4 ساعات أسبوعياً
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="subject-item" onclick="window.location.href='Railway Electronics.HTML'">
+                                <i class="fas fa-microchip subject-icon"></i>
+                                <div>
+                                    <div class="subject-name">Railway Electronics
+                                        <span class="subject-code">RLW302</span>
+                                    </div>
+                                    <div class="subject-description">الإلكترونيات وتطبيقاتها في أنظمة السكك الحديدية</div>
+                                    <div class="subject-details">
+                                        <i class="fas fa-clock"></i> 3 ساعات أسبوعياً
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="subject-item" onclick="window.location.href='Railway Safety & Security.HTML'">
+                                <i class="fas fa-shield-alt subject-icon"></i>
+                                <div>
+                                    <div class="subject-name">Railway Safety & Security
+                                        <span class="subject-code">RLW303</span>
+                                    </div>
+                                    <div class="subject-description">أنظمة السلامة والأمان في السكك الحديدية</div>
+                                    <div class="subject-details">
+                                        <i class="fas fa-clock"></i> 2 ساعة أسبوعياً
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <button class="close-btn" onclick="hideSubjects('semester2-subjects')">
+                            <i class="fas fa-times"></i> إغلاق
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- زر الجدول -->
+            <div class="schedule-btn-container">
+                <a href="TAB.HTML" class="schedule-btn">
+                    <i class="fas fa-calendar-alt"></i>
+                    <div class="btn-text">
+                        <span class="btn-main-text">الجدول الدراسي</span>
+                        <span class="btn-sub-text">اضغط لعرض الجدول</span>
+                    </div>
+                </a>
+            </div>
         </div>
     </div>
 
     <script>
-        // إضافة تأثيرات تفاعلية
+        // التحقق من حالة تسجيل الدخول عند تحميل الصفحة
         document.addEventListener('DOMContentLoaded', function() {
+            const currentUser = localStorage.getItem('currentUser');
+            
+            if (currentUser) {
+                // المستخدم مسجل دخول بالفعل، عرض الصفحة الرئيسية
+                showMainPage();
+            } else {
+                // المستخدم غير مسجل دخول، عرض صفحة تسجيل الدخول
+                showLoginPage();
+            }
+            
+            // إضافة تأثيرات تفاعلية للبطاقات
             const cards = document.querySelectorAll('.semester-card');
             
             cards.forEach(card => {
@@ -873,11 +1077,6 @@
                 this.style.display = 'none';
             });
             
-            // تأثير تحميل الصفحة
-            setTimeout(() => {
-                document.body.style.opacity = 1;
-            }, 100);
-            
             // تأثير اهتزاز خفيف للقطار
             const train = document.querySelector('.train');
             setInterval(() => {
@@ -901,6 +1100,65 @@
                     document.getElementById('show-semester2').style.display = 'block';
                 }
             }, 500);
+        }
+        
+        // معالجة تسجيل الدخول
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const userType = document.getElementById('userType').value;
+            
+            // بيانات المستخدمين المخزنة (في تطبيق حقيقي، يجب أن تكون في قاعدة بيانات)
+            const users = {
+                '131331': { password: 'Aty2022#', type: 'admin' },
+                'student': { password: 'student123', type: 'student' }
+            };
+            
+            if (users[username] && users[username].password === password && users[username].type === userType) {
+                // إضافة تأثير النجاح
+                document.querySelector('.login-container').style.animation = 'successPulse 0.5s ease';
+                
+                // حفظ بيانات المستخدم في localStorage
+                localStorage.setItem('currentUser', JSON.stringify({
+                    username: username,
+                    type: userType
+                }));
+                
+                // توجيه إلى الصفحة الرئيسية بعد تأخير بسيط
+                setTimeout(() => {
+                    showMainPage();
+                }, 500);
+            } else {
+                document.getElementById('errorMessage').style.display = 'block';
+                // تأثير اهتزاز عند الخطأ
+                document.querySelector('.login-container').style.animation = 'shake 0.5s ease';
+                setTimeout(() => {
+                    document.querySelector('.login-container').style.animation = '';
+                }, 500);
+            }
+        });
+        
+        // تسجيل الخروج
+        document.getElementById('logoutBtn').addEventListener('click', function() {
+            localStorage.removeItem('currentUser');
+            showLoginPage();
+        });
+        
+        // عرض صفحة تسجيل الدخول
+        function showLoginPage() {
+            document.getElementById('loginPage').style.display = 'flex';
+            document.getElementById('mainPage').style.display = 'none';
+            // إعادة تعيين نموذج تسجيل الدخول
+            document.getElementById('loginForm').reset();
+            document.getElementById('errorMessage').style.display = 'none';
+        }
+        
+        // عرض الصفحة الرئيسية
+        function showMainPage() {
+            document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('mainPage').style.display = 'block';
         }
     </script>
 </body>

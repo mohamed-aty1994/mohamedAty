@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الجدول الدراسي - الترم الأول</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* التنسيقات العامة */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('01.JPG');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        /* أيام الأسبوع */
+        .days-nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .day-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            font-weight: bold;
+            backdrop-filter: blur(10px);
+            border: 2px solid transparent;
+        }
+
+        .day-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .day-btn.active {
+            background: rgba(52, 152, 219, 0.6);
+            border-color: #3498db;
+            transform: translateY(-3px);
+        }
+
+        /* جدول اليوم */
+        .day-schedule {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .day-schedule.active {
+            display: block;
+        }
+
+        .day-title {
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+            color: #3498db;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(52, 152, 219, 0.5);
+        }
+
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .schedule-table th {
+            background: rgba(52, 152, 219, 0.4);
+            padding: 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 1.1rem;
+        }
+
+        .schedule-table td {
+            padding: 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: background 0.3s ease;
+        }
+
+        .schedule-table tr:hover td {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .time-cell {
+            background: rgba(231, 76, 60, 0.2);
+            font-weight: bold;
+            width: 150px;
+        }
+
+        .lecture-cell {
+            text-align: right;
+            padding: 15px 20px;
+        }
+
+        .location-cell {
+            width: 120px;
+            font-weight: 500;
+        }
+
+        .lecture-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+
+        .lecture-instructor {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            color: #ddd;
+        }
+
+        .location-online {
+            background: rgba(52, 152, 219, 0.3);
+        }
+
+        .location-lab {
+            background: rgba(155, 89, 182, 0.3);
+        }
+
+        .location-class {
+            background: rgba(46, 204, 113, 0.3);
+        }
+
+        /* القطار المتحرك المحسن */
+        .train-container {
+            position: fixed;
+            bottom: 20px;
+            left: 0;
+            width: 100%;
+            height: 180px;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .train {
+            position: absolute;
+            bottom: 0;
+            left: -500px;
+            width: 500px;
+            height: 150px;
+            animation: moveTrain 30s linear infinite;
+        }
+        
+        /* جسم القطار الرئيسي */
+        .train-body {
+            position: absolute;
+            bottom: 30px;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            background: linear-gradient(90deg, #2c3e50, #34495e, #2c3e50);
+            border-radius: 10px 10px 0 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+        
+        /* كابينة القيادة */
+        .train-cabin {
+            position: absolute;
+            bottom: 110px;
+            left: 30px;
+            width: 140px;
+            height: 70px;
+            background: linear-gradient(90deg, #e74c3c, #c0392b);
+            border-radius: 8px 8px 0 0;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+        }
+        
+        /* نوافذ الكابينة */
+        .cabin-window {
+            position: absolute;
+            top: 12px;
+            width: 45px;
+            height: 35px;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            border: 2px solid #2c3e50;
+            border-radius: 4px;
+        }
+        
+        .cabin-window:nth-child(1) {
+            left: 15px;
+        }
+        
+        .cabin-window:nth-child(2) {
+            left: 75px;
+        }
+        
+        /* عجلات القطار المحسنة */
+        .train-wheels {
+            position: absolute;
+            bottom: 15px;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 25px;
+        }
+        
+        .wheel {
+            width: 35px;
+            height: 35px;
+            background: #2c3e50;
+            border-radius: 50%;
+            border: 4px solid #7f8c8d;
+            position: relative;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+        
+        .wheel::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 15px;
+            height: 15px;
+            background: #95a5a6;
+            border-radius: 50%;
+        }
+        
+        .wheel::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 6px;
+            height: 6px;
+            background: #ecf0f1;
+            border-radius: 50%;
+        }
+        
+        /* مصابيح أمامية محسنة */
+        .train-headlight {
+            position: absolute;
+            bottom: 70px;
+            left: 5px;
+            width: 25px;
+            height: 25px;
+            background: #f1c40f;
+            border-radius: 50%;
+            box-shadow: 0 0 25px 12px rgba(241, 196, 15, 0.8);
+            animation: headlightPulse 1.5s infinite alternate;
+            z-index: 2;
+        }
+        
+        /* تفاصيل إضافية */
+        .train-details {
+            position: absolute;
+            top: 20px;
+            left: 180px;
+            width: 220px;
+            height: 40px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ecf0f1;
+            font-size: 14px;
+            font-weight: bold;
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+        
+        /* مسار القطار المحسن */
+        .train-track {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background: linear-gradient(to bottom, #5d4037, #4e342e);
+            z-index: -2;
+            overflow: hidden;
+        }
+        
+        .rail {
+            position: absolute;
+            top: 15px;
+            width: 100%;
+            height: 12px;
+            background: linear-gradient(to bottom, #78909c, #546e7a);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .rail::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to bottom, #b0bec5, #90a4ae);
+            border-radius: 2px 2px 0 0;
+        }
+        
+        .rail::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to bottom, #90a4ae, #78909c);
+            border-radius: 0 0 2px 2px;
+        }
+        
+        .sleepers {
+            position: absolute;
+            top: 27px;
+            left: 0;
+            width: 100%;
+            height: 15px;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 95px,
+                #8d6e63 95px,
+                #8d6e63 115px
+            );
+        }
+        
+        .sleeper {
+            position: absolute;
+            top: 0;
+            width: 20px;
+            height: 15px;
+            background: #6d4c41;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+        
+        .ballast {
+            position: absolute;
+            top: 42px;
+            left: 0;
+            width: 100%;
+            height: 18px;
+            background: linear-gradient(to bottom, #795548, #6d4c41);
+        }
+        
+        .ballast::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20px 5px, #8d6e63 2px, transparent 3px),
+                radial-gradient(circle at 50px 8px, #8d6e63 2px, transparent 3px),
+                radial-gradient(circle at 80px 12px, #8d6e63 2px, transparent 3px),
+                radial-gradient(circle at 120px 7px, #8d6e63 2px, transparent 3px),
+                radial-gradient(circle at 160px 10px, #8d6e63 2px, transparent 3px);
+            background-size: 200px 18px;
+        }
+        
+        /* أنيميشن القطار */
+        @keyframes moveTrain {
+            0% { left: -500px; }
+            100% { left: 100%; }
+        }
+        
+        @keyframes headlightPulse {
+            0% { 
+                box-shadow: 0 0 20px 8px rgba(241, 196, 15, 0.6);
+                transform: scale(1);
+            }
+            100% { 
+                box-shadow: 0 0 30px 15px rgba(241, 196, 15, 0.9);
+                transform: scale(1.1);
+            }
+        }
+        
+        /* تأثير الدخان المحسن والواقعي */
+        .smoke-container {
+            position: absolute;
+            top: -10px;
+            left: 140px;
+            width: 60px;
+            height: 100px;
+            z-index: 1;
+        }
+        
+        .smoke {
+            position: absolute;
+            background: radial-gradient(circle at center, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.7) 30%, rgba(255,255,255,0.3) 70%, transparent 100%);
+            border-radius: 50%;
+            filter: blur(8px);
+            opacity: 0;
+        }
+        
+        .smoke-1 {
+            width: 15px;
+            height: 15px;
+            animation: smokeRise1 4s infinite ease-out;
+            left: 10px;
+        }
+        
+        .smoke-2 {
+            width: 20px;
+            height: 20px;
+            animation: smokeRise2 4s infinite ease-out 0.5s;
+            left: 15px;
+        }
+        
+        .smoke-3 {
+            width: 25px;
+            height: 25px;
+            animation: smokeRise3 4s infinite ease-out 1s;
+            left: 5px;
+        }
+        
+        .smoke-4 {
+            width: 18px;
+            height: 18px;
+            animation: smokeRise4 4s infinite ease-out 1.5s;
+            left: 20px;
+        }
+        
+        .smoke-5 {
+            width: 22px;
+            height: 22px;
+            animation: smokeRise5 4s infinite ease-out 2s;
+            left: 8px;
+        }
+        
+        @keyframes smokeRise1 {
+            0% {
+                transform: translateY(0) translateX(0) scale(0.8);
+                opacity: 0.8;
+            }
+            20% {
+                transform: translateY(-20px) translateX(5px) scale(1.2);
+                opacity: 0.7;
+            }
+            40% {
+                transform: translateY(-40px) translateX(-3px) scale(1.5);
+                opacity: 0.5;
+            }
+            60% {
+                transform: translateY(-60px) translateX(2px) scale(1.8);
+                opacity: 0.3;
+            }
+            80% {
+                transform: translateY(-80px) translateX(-5px) scale(2);
+                opacity: 0.1;
+            }
+            100% {
+                transform: translateY(-100px) translateX(0) scale(2.2);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes smokeRise2 {
+            0% {
+                transform: translateY(0) translateX(0) scale(0.9);
+                opacity: 0.7;
+            }
+            20% {
+                transform: translateY(-25px) translateX(-4px) scale(1.3);
+                opacity: 0.6;
+            }
+            40% {
+                transform: translateY(-50px) translateX(3px) scale(1.6);
+                opacity: 0.4;
+            }
+            60% {
+                transform: translateY(-75px) translateX(-2px) scale(1.9);
+                opacity: 0.2;
+            }
+            80% {
+                transform: translateY(-100px) translateX(4px) scale(2.1);
+                opacity: 0.1;
+            }
+            100% {
+                transform: translateY(-125px) translateX(0) scale(2.3);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes smokeRise3 {
+            0% {
+                transform: translateY(0) translateX(0) scale(1);
+                opacity: 0.9;
+            }
+            20% {
+                transform: translateY(-30px) translateX(2px) scale(1.4);
+                opacity: 0.8;
+            }
+            40% {
+                transform: translateY(-60px) translateX(-4px) scale(1.7);
+                opacity: 0.6;
+            }
+            60% {
+                transform: translateY(-90px) translateX(3px) scale(2);
+                opacity: 0.4;
+            }
+            80% {
+                transform: translateY(-120px) translateX(-3px) scale(2.2);
+                opacity: 0.2;
+            }
+            100% {
+                transform: translateY(-150px) translateX(0) scale(2.4);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes smokeRise4 {
+            0% {
+                transform: translateY(0) translateX(0) scale(0.8);
+                opacity: 0.6;
+            }
+            20% {
+                transform: translateY(-22px) translateX(-2px) scale(1.1);
+                opacity: 0.5;
+            }
+            40% {
+                transform: translateY(-44px) translateX(4px) scale(1.4);
+                opacity: 0.3;
+            }
+            60% {
+                transform: translateY(-66px) translateX(-3px) scale(1.7);
+                opacity: 0.2;
+            }
+            80% {
+                transform: translateY(-88px) translateX(2px) scale(1.9);
+                opacity: 0.1;
+            }
+            100% {
+                transform: translateY(-110px) translateX(0) scale(2.1);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes smokeRise5 {
+            0% {
+                transform: translateY(0) translateX(0) scale(0.9);
+                opacity: 0.7;
+            }
+            20% {
+                transform: translateY(-28px) translateX(3px) scale(1.2);
+                opacity: 0.6;
+            }
+            40% {
+                transform: translateY(-56px) translateX(-2px) scale(1.5);
+                opacity: 0.4;
+            }
+            60% {
+                transform: translateY(-84px) translateX(4px) scale(1.8);
+                opacity: 0.2;
+            }
+            80% {
+                transform: translateY(-112px) translateX(-1px) scale(2);
+                opacity: 0.1;
+            }
+            100% {
+                transform: translateY(-140px) translateX(0) scale(2.2);
+                opacity: 0;
+            }
+        }
+
+        /* تصميم متجاوب */
+        @media (max-width: 768px) {
+            .nav-tabs {
+                flex-direction: column;
+            }
+            
+            .tab-btn {
+                justify-content: center;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .info-grid, .videos-grid, .sheets-grid, .files-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .train {
+                width: 350px;
+                height: 120px;
+            }
+            
+            .train-cabin {
+                width: 100px;
+                height: 50px;
+                bottom: 90px;
+            }
+            
+            .cabin-window {
+                width: 35px;
+                height: 25px;
+            }
+            
+            .cabin-window:nth-child(2) {
+                left: 60px;
+            }
+            
+            .smoke-container {
+                left: 100px;
+            }
+        }
+
+        /* الأنيميشن */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(-5px);
+        }
+    </style>
+</head>
+<body>
+    <!-- مسار القطار المحسن -->
+    <div class="train-track">
+        <div class="rail"></div>
+        <div class="sleepers"></div>
+        <div class="ballast"></div>
+    </div>
+    
+    <!-- القطار المتحرك المحسن -->
+    <div class="train-container">
+        <div class="train">
+            <div class="smoke-container">
+                <div class="smoke smoke-1"></div>
+                <div class="smoke smoke-2"></div>
+                <div class="smoke smoke-3"></div>
+                <div class="smoke smoke-4"></div>
+                <div class="smoke smoke-5"></div>
+            </div>
+            <div class="train-body"></div>
+            <div class="train-cabin">
+                <div class="cabin-window"></div>
+                <div class="cabin-window"></div>
+            </div>
+            <div class="train-headlight"></div>
+            <div class="train-details">RLW202 WELDED</div>
+            <div class="train-wheels">
+                <div class="wheel"></div>
+                <div class="wheel"></div>
+                <div class="wheel"></div>
+                <div class="wheel"></div>
+                <div class="wheel"></div>
+                <div class="wheel"></div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <header>
+            <h1>الجدول الدراسي</h1>
+            <p class="subtitle">الترم الأول - قسم هندسة السكك الحديدية</p>
+        </header>
+        
+        <!-- أيام الأسبوع -->
+        <div class="days-nav">
+            <button class="day-btn active" onclick="showDay('sunday')">الأحد</button>
+            <button class="day-btn" onclick="showDay('monday')">الاثنين</button>
+            <button class="day-btn" onclick="showDay('wednesday')">الأربعاء</button>
+        </div>
+        
+        <!-- جدول الأحد -->
+        <div class="day-schedule active" id="sunday">
+            <h3 class="day-title">جدول يوم الأحد</h3>
+            <table class="schedule-table">
+                <thead>
+                    <tr>
+                        <th>الوقت</th>
+                        <th>المحاضرة / المعمل</th>
+                        <th>المكان</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="time-cell">09:00 - 10:30</td>
+                        <td class="lecture-cell">
+                            <div class="lecture-name">اللغة الإنجليزية 3</div>
+                            <div class="lecture-instructor">د./أماني هارون</div>
+                        </td>
+                        <td class="location-cell location-online">أونلاين</td>
+                    </tr>
+                    <tr>
+                        <td class="time-cell">10:30 - 12:00</td>
+                        <td class="lecture-cell">
+                            <div class="lecture-name">أنواع واختبارات التجميع في مسارات السكك الحديدية (معمل)</div>
+                            <div class="lecture-instructor">م. عمرو وليد</div>
+                        </td>
+                        <td class="location-cell location-lab">RA:301</td>
+                    </tr>
+                    <tr>
+                        <td class="time-cell">12:00 - 01:30</td>
+                        <td class="lecture-cell">
+                            <div class="lecture-name">اختبار مسارات السكك الحديدية (معمل)</div>
+                            <div class="lecture-instructor">م. عمرو وليد</div>
+                        </td>
+                        <td class="location-cell location-lab">W5</td>
+                    </tr>
+                    <tr>
+                        <td class="time-cell">01:30 - 03:00</td>
+                        <td class="lecture-cell">
+                            <div class="lecture-name">تحديث السكك الحديدية والقطارات فائقة السرعة (معمل)</div>
+                            <div class="lecture-instructor">م. نرمين</div>
+                        </td>
+                        <td class="location-cell location-lab">H2B</td>
+                    </tr>
+                    <tr>
+                        <td class="time-cell">03:00 - 04:30</td>
+                        <td class="lecture-cell">
+                            <div class="lecture-name">أنواع واختبارات التجميع في مسارات السكك الحديدية</div>
+                            <div class="lecture-instructor">د./محمد أبو عكيل</div>
+                        </td>
+                        <td class="location-cell location-class">H2B</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- جدول الاثنين -->
+        <div class="day-schedule" id="monday">
+            <h3 class="day-title">جدول يوم الاثنين</h3>
+            <table class="schedule-table">
+                <thead>
+                    <tr>
+                        <th>الوقت</th>
+                        <th>المحاضرة / المعمل</th>
+                        <th>المكان</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="time-cell">10:30 - 12:00</td>
+                        <td class="lecture-cell">
+                            <div class="lecture-name">مسار السكك الحديدية الملحوم الحديث</div>
+                            <div class="lecture-instructor">د./سيف</div>
+                        </td>
+                        <td class="location-cell location-class">H2B</td>
+                    </tr>
+                    <tr>
+                        <td class="time-cell">12:00 - 01:30</td>
+                        <td class="lecture-cell">
+                            <div class="lecture-name">الميكانيكا التطبيقية</div>
+                            <div class="lecture-instructor">د./جهان الجرحي</div>
+                        </td>
+                        <td class="location-cell location-class">RB:201</td>
+                    </tr>
+                    <tr>
+                        <td class="time-cell">01:30 - 03:00</td>
+                        <td class="lecture-cell">
+                            <div class="lecture-name">أنشطة طلاب الجامعة</div>
+                            <div class="lecture-instructor">University Student Activities</div>
+                        </td>
+                        <td class="location-cell location-online">صيع مكان ما تصيع</td>
+                    </tr>
+                    <tr>
+                        <td class="time-cell">03:00 - 04:30</td>
+                        <td class="lecture-cell">
+                            <div class="lecture-name">تحديث السكك الحديدية والقطارات فائقة السرعة</div>
+                            <div class="lecture-instructor">د./عبد الحميد سامي</div>
+                        </td>
+                        <td class="location-cell location-class">W13</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- جدول الأربعاء -->
+        <div class="day-schedule" id="wednesday">
+            <h3 class="day-title">جدول يوم الأربعاء</h3>
+            <table class="schedule-table">
+                <thead>
+                    <tr>
+                        <th>الوقت</th>
+                        <th>المحاضرة / المعمل</th>
+                        <th>المكان</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="time-cell">10:30 - 12:00</td>
+                        <td class="lecture-cell">
+                            <div class="lecture-name">اختبار مسارات السكك الحديدية</div>
+                            <div class="lecture-instructor">د./عبد الحميد سامي</div>
+                        </td>
+                        <td class="location-cell location-class">H2B</td>
+                    </tr>
+                    <tr>
+                        <td class="time-cell">12:00 - 01:30</td>
+                        <td class="lecture-cell">
+                            <div class="lecture-name">مسار السكك الحديدية الملحوم الحديث (معمل)</div>
+                            <div class="lecture-instructor">م./أحمد محمد</div>
+                        </td>
+                        <td class="location-cell location-lab">W6</td>
+                    </tr>
+                    <tr>
+                        <td class="time-cell">03:00 - 04:30</td>
+                        <td class="lecture-cell">
+                            <div class="lecture-name">الميكانيكا التطبيقية (معمل)</div>
+                            <div class="lecture-instructor">م. محمد جبر</div>
+                        </td>
+                        <td class="location-cell location-lab">W3</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // دالة لعرض اليوم المحدد
+        function showDay(dayId) {
+            // إخفاء جميع الجداول
+            const allSchedules = document.querySelectorAll('.day-schedule');
+            allSchedules.forEach(schedule => {
+                schedule.classList.remove('active');
+            });
+            
+            // إزالة النشاط من جميع الأزرار
+            const allButtons = document.querySelectorAll('.day-btn');
+            allButtons.forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            // إظهار الجدول المحدد وإضافة النشاط للزر
+            document.getElementById(dayId).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // تأثير تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                document.body.style.opacity = 1;
+            }, 100);
+        });
+    </script>
+</body>
+</html>

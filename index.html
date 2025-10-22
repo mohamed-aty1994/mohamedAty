@@ -16,7 +16,7 @@
         
         body {
             background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
-                        url('https://www.bing.com/images/search?view=detailV2&ccid=ZXrPls1Y&id=33BA65FE40CDABF5B6E3BF5E7168C77DEAF18277&thid=OIP.ZXrPls1YwKX3tlUeX6YM-gHaE7&mediaurl=https%3A%2F%2Fcolleygatemedia.com%2Fimages%2FRailway%2Frailway6.jpg&cdnurl=https%3A%2F%2Fth.bing.com%2Fth%2Fid%2FR.657acf96cd58c0a5f7b6551e5fa60cfa%3Frik%3Dd4Lx6n3HaHFevw%26pid%3DImgRaw%26r%3D0&exph=1365&expw=2048&q=railway&FORM=IRPRST&ck=725569DB9E0C747DCA1DFFBC9B6BDD87&selectedIndex=0&itb=0&cw=2294&ch=1109&ajaxhist=0&ajaxserp=0 ');
+                        url('https://images.unsplash.com/photo-1549488344-1f9b8d2bd1f3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -42,21 +42,27 @@
         
         .login-container {
             background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
             padding: 40px;
             width: 90%;
             max-width: 450px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
             text-align: center;
             z-index: 10;
             position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: fadeIn 1s ease-out;
         }
         
         h1 {
             font-size: 2.5rem;
             margin-bottom: 10px;
             text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(45deg, #ff8a00, #e52e71);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
         .subtitle {
@@ -106,6 +112,24 @@
             width: 100%;
             margin-top: 10px;
             font-size: 1.1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255,255,255,0.2), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.5s ease;
+        }
+        
+        .btn:hover::after {
+            transform: translateX(100%);
         }
         
         .btn:hover {
@@ -130,6 +154,7 @@
             border-radius: 8px;
             font-size: 0.9rem;
             text-align: right;
+            animation: fadeIn 1.5s ease-out;
         }
 
         .login-info h3 {
@@ -167,6 +192,10 @@
             font-size: 3rem;
             margin-bottom: 10px;
             text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(45deg, #ff8a00, #e52e71);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
         .main-subtitle {
@@ -186,20 +215,21 @@
         
         .semester-card {
             background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
             padding: 30px;
             width: 100%;
             max-width: 500px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
             transition: transform 0.4s ease, box-shadow 0.4s ease;
             position: relative;
             overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
         
         .semester-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
         }
         
         .semester-card::before {
@@ -259,6 +289,24 @@
             border: none;
             cursor: pointer;
             min-width: 220px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .schedule-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255,255,255,0.2), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.5s ease;
+        }
+        
+        .schedule-btn:hover::after {
+            transform: translateX(100%);
         }
 
         .schedule-btn:hover {
@@ -675,11 +723,13 @@
             align-items: center;
             transition: transform 0.3s ease;
             cursor: pointer;
+            border-left: 4px solid transparent;
         }
         
         .subject-item:hover {
             transform: translateX(10px);
             background: rgba(255, 255, 255, 0.15);
+            border-left: 4px solid #3498db;
         }
         
         .subject-icon {
@@ -762,6 +812,60 @@
             50% { transform: scale(1.02); }
             100% { transform: scale(1); }
         }
+        
+        /* تأثيرات إضافية للشكل */
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(52, 152, 219, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0); }
+        }
+        
+        /* تأثيرات النص */
+        .glow-text {
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+        }
+        
+        /* تلميحات */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -60px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
@@ -798,8 +902,8 @@
     
     <!-- صفحة تسجيل الدخول -->
     <div id="loginPage">
-        <div class="login-container">
-            <h1>تسجيل الدخول</h1>
+        <div class="login-container floating">
+            <h1 class="glow-text">تسجيل الدخول</h1>
             <p class="subtitle">الرجاء إدخال بيانات الدخول</p>
             
             <form id="loginForm">
@@ -822,7 +926,7 @@
                     </select>
                 </div>
                 
-                <button type="submit" class="btn">
+                <button type="submit" class="btn pulse">
                     <i class="fas fa-sign-in-alt"></i> دخول
                 </button>
                 <div class="error" id="errorMessage">اسم المستخدم أو كلمة المرور غير صحيحة</div>
@@ -852,12 +956,12 @@
         
         <div class="container">
             <header>
-                <h1 class="main-title">الفصول الدراسية</h1>
+                <h1 class="main-title glow-text">الفصول الدراسية</h1>
                 <p class="main-subtitle">اختر الفصل الدراسي</p>
             </header>
             
             <div class="semesters">
-                <div class="semester-card semester-1">
+                <div class="semester-card semester-1 floating">
                     <h2 class="semester-title">الترم الأول</h2>
                     <p class="semester-content">
                         هنا مواد الترم الاول الي دوس هنا 👇
@@ -949,7 +1053,7 @@
                     </div>
                 </div>
                 
-                <div class="semester-card semester-2">
+                <div class="semester-card semester-2 floating">
                     <h2 class="semester-title">الترم الثاني</h2>
                     <p class="semester-content">
                         هنا مواد الترم الثاني الي دوس هنا 👇
@@ -1008,7 +1112,7 @@
 
             <!-- زر الجدول -->
             <div class="schedule-btn-container">
-                <a href="TAB.HTML" class="schedule-btn">
+                <a href="TAB.HTML" class="schedule-btn pulse">
                     <i class="fas fa-calendar-alt"></i>
                     <div class="btn-text">
                         <span class="btn-main-text">الجدول الدراسي</span>
@@ -1163,6 +1267,3 @@
     </script>
 </body>
 </html>
-
-
-
